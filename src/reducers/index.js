@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import fuelSavings from './fuelSavingsReducer';
+import tvShowReducer from './tvShowReducer';
 import {routerReducer} from 'react-router-redux';
 
 const rootReducer = combineReducers({
-  fuelSavings,
+  tvShowReducer,
   routing: routerReducer
 });
 
