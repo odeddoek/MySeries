@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import tvShowReducer from './tvShowReducer';
+import shows from './tvShowReducer';
 import {routerReducer} from 'react-router-redux';
 
 const rootReducer = combineReducers({
-  tvShowReducer,
+  shows,
   routing: routerReducer
 });
 

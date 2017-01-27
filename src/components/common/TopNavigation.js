@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link, IndexLink } from 'react-router';
 
 // This is a class-based component because the current
@@ -10,7 +10,7 @@ class TopNavigation extends React.Component {
       <div>
         <IndexLink to="/">Home</IndexLink>
         {' | '}
-        <Link to="/fuel-savings">Demo App</Link>
+        <Link to="/shows">Shows list</Link>
         {' | '}
         <Link to="/about">About</Link>
       </div>
