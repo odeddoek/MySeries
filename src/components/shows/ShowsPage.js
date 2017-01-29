@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ShowList from './ShowList';
-import * as showsActions from '../../actions/tvShowActions'
+import * as showsActions from '../../actions/tvShowActions';
 
 class ShowsPage extends React.Component {
   constructor(props, context)
@@ -28,7 +28,6 @@ ShowsPage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  debugger;
   return {shows: state.shows};
 }
 

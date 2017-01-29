@@ -8,14 +8,12 @@ import {
 // example of a thunk using the redux-thunk middleware
 
 export function loadShowsSuccess(shows) {
-  debugger;
   return { type: types.LOAD_SHOWS_SUCCESS, shows };
 }
 
 export function loadShows() {
-  debugger;
   return function(dispatch) {
-    dispatch(beginAjaxCall())
+    dispatch(beginAjaxCall());
     return TvShowApi.getAllTvShows().then(shows => {
       dispatch(loadShowsSuccess(shows));
     }).catch(error => {
