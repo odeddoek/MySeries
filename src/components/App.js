@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import React, {PropTypes} from 'react';
+import {Link, IndexLink} from 'react-router';
 import TopNavigation from './common/TopNavigation';
 
 // This is a class-based component because the current
@@ -8,10 +8,11 @@ import TopNavigation from './common/TopNavigation';
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <TopNavigation />
-        <br/>
-        {this.props.children}
+      <div className="container">
+        <TopNavigation/>
+        <section className="section">
+          {this.props.children}
+        </section>
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, IndexLink } from 'react-router';
+import {Link, IndexLink} from 'react-router';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -7,12 +7,23 @@ import { Link, IndexLink } from 'react-router';
 class TopNavigation extends React.Component {
   render() {
     return (
-      <div>
-        <IndexLink to="/">Home</IndexLink>
-        {' | '}
-        <Link to="/shows">Shows list</Link>
-        {' | '}
-        <Link to="/about">About</Link>
+      <div className="container">
+        <nav className="nav">
+          <div className="nav-left">
+            <a href="#" className="nav-item logo-text">MySerias</a>
+          </div>
+          <span className="nav-toggle">
+            <span/>
+            <span/>
+            <span/>
+          </span>
+
+          <div className="nav-right nav-menu">
+            <IndexLink to="/" className="nav-item">Home</IndexLink>
+            <Link to="/shows" className="nav-item">Shows list</Link>
+            <Link to="/about" className="nav-item">About</Link>
+          </div>
+        </nav>
       </div>
     );
   }
