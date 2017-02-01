@@ -7,24 +7,22 @@ import {Link, IndexLink} from 'react-router';
 class TopNavigation extends React.Component {
   render() {
     return (
-      <div className="container">
-        <nav className="nav">
-          <div className="nav-left">
-            <a href="#" className="nav-item logo-text">MySerias</a>
-          </div>
-          <span className="nav-toggle">
-            <span/>
-            <span/>
-            <span/>
-          </span>
+      <nav className="nav">
+        <div className="nav-left">
+          <a href="#" className="nav-item logo-text">MySerias</a>
+        </div>
+        <span className="nav-toggle">
+          <span/>
+          <span/>
+          <span/>
+        </span>
 
-          <div className="nav-right nav-menu">
-            <IndexLink to="/" className="nav-item">Home</IndexLink>
-            <Link to="/shows" className="nav-item">Shows list</Link>
-            <Link to="/about" className="nav-item">About</Link>
-          </div>
-        </nav>
-      </div>
+        <div className="nav-right nav-menu">
+          <IndexLink to="/" className="nav-item">Home</IndexLink>
+          <Link to="/shows" className="nav-item">Shows list</Link>
+          <Link to="/about" className="nav-item">About</Link>
+        </div>
+      </nav>
     );
   }
 }

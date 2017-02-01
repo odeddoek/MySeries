@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {Link, IndexLink} from 'react-router';
 import TopNavigation from './common/TopNavigation';
+import Footer from './common/Footer';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -8,11 +9,14 @@ import TopNavigation from './common/TopNavigation';
 class App extends React.Component {
   render() {
     return (
-      <div className="container">
+      <div>
         <TopNavigation/>
         <section className="section">
-          {this.props.children}
+          <div className="container content">
+            {this.props.children}
+          </div>
         </section>
+        <Footer/>
       </div>
     );
   }
