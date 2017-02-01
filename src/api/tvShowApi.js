@@ -6,14 +6,17 @@ import delay from './delay';
 const tvShows = [{
     id: '1',
     title: 'Game of thrones',
+    img: 'http://static.tvmaze.com/uploads/images/original_untouched/53/132622.jpg'
   },
   {
     id: '2',
     title: 'The Big Bang Theory',
+    img: 'http://static.tvmaze.com/uploads/images/original_untouched/58/145601.jpg'
   },
   {
     id: '3',
     title: 'House of Cards',
+    img: 'http://static.tvmaze.com/uploads/images/original_untouched/78/196742.jpg'
   }
 ];
 

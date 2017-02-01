@@ -3,17 +3,9 @@ import ShowListRow from './ShowListRow';
 
 const ShowList = ({shows}) => {
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>&nbsp;</th>
-          <th>Title</th>
-        </tr>
-      </thead>
-      <tbody>
+      <div className="columns is-multiline">
         {shows.map(show => <ShowListRow key={show.id} show={show}/>)}
-      </tbody>
-    </table>
+      </div>
   );
 };
 
