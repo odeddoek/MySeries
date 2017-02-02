@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import {Link, IndexLink} from 'react-router';
 import TopNavigation from './common/TopNavigation';
 import Footer from './common/Footer';
 
