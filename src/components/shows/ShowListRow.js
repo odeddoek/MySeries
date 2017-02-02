@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 const ShowListRow = ({show}) => {
   return (
-    <div className="column is-3">
+    <div className="column is-2">
       <div className="panel">
         <p className="is-marginless"><img src={show.img}/></p>
         <div className="panel-block">
