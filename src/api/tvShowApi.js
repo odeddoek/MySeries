@@ -4,17 +4,17 @@ import delay from './delay';
 // It uses setTimeout to simulate the delay of an AJAX call.
 // All calls return promises.
 const tvShows = [{
-    id: '1',
+    id: 1,
     title: 'Game of thrones',
     img: 'http://static.tvmaze.com/uploads/images/original_untouched/53/132622.jpg'
   },
   {
-    id: '2',
+    id: 2,
     title: 'The Big Bang Theory',
     img: 'http://static.tvmaze.com/uploads/images/original_untouched/58/145601.jpg'
   },
   {
-    id: '3',
+    id: 3,
     title: 'House of Cards',
     img: 'http://static.tvmaze.com/uploads/images/original_untouched/78/196742.jpg'
   }
@@ -32,7 +32,7 @@ class TvShowsApi {
   static getAllTvShows() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(Object.assign([], tvShows));
+        resolve(Object.assign([], tvShows.map((tvShow) => { return tvShow.id; })));
       }, delay);
     });
   }

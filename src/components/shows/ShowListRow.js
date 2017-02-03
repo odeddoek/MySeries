@@ -5,9 +5,9 @@ const ShowListRow = ({show}) => {
   return (
     <div className="column is-2">
       <div className="panel">
-        <p className="is-marginless"><img src={show.img}/></p>
+        <p className="is-marginless"><img src={show.image}/></p>
         <div className="panel-block">
-          {show.title}
+          {show.name}
         </div>
       </div>
     </div>
