@@ -3,20 +3,29 @@ import delay from './delay';
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
 // All calls return promises.
-const tvShows = [{
-    id: 1,
-    title: 'Game of thrones',
-    img: 'http://static.tvmaze.com/uploads/images/original_untouched/53/132622.jpg'
-  },
+const tvShows = [
   {
-    id: 2,
-    title: 'The Big Bang Theory',
-    img: 'http://static.tvmaze.com/uploads/images/original_untouched/58/145601.jpg'
-  },
-  {
-    id: 3,
-    title: 'House of Cards',
-    img: 'http://static.tvmaze.com/uploads/images/original_untouched/78/196742.jpg'
+    id: 1
+  }, {
+    id: 2
+  }, {
+    id: 3
+  }, {
+    id: 4
+  }, {
+    id: 5
+  }, {
+    id: 6
+  }, {
+    id: 7
+  }, {
+    id: 8
+  }, {
+    id: 9
+  }, {
+    id: 10
+  }, {
+    id: 11
   }
 ];
 
@@ -32,7 +41,9 @@ class TvShowsApi {
   static getAllTvShows() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(Object.assign([], tvShows.map((tvShow) => { return tvShow.id; })));
+        resolve(Object.assign([], tvShows.map((tvShow) => {
+          return tvShow.id;
+        })));
       }, delay);
     });
   }
