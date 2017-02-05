@@ -6,10 +6,12 @@ import * as mongoose from "mongoose";
 import * as graphqlHTTP from "express-graphql";
 import { schema } from "./graphql/schema";
 import * as cors from "cors";
+var session = require('express-session');
 
 class Server {
     app: any;
     constructor() {
+        this.initializeDatabase();
         this.app = express();
         this.config();
         this.grahhql();
@@ -28,6 +30,7 @@ class Server {
             err.status = 404;
             next(err);
         });
+        this.app.use(session({ secret: 'secret', cookie: { maxAge: 30000 } }));
     }
 
     initializeDatabase() {
