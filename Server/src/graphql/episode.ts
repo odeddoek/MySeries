@@ -6,7 +6,7 @@ import {
 } from 'graphql';
 
 export default new GraphQLObjectType({
-    name: 'Episode',
+    name: 'Episode2',
     fields: {
         id: {
             type: GraphQLInt

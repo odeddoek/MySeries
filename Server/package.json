@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "develop": "concurrently \"tsc -w -p ./server\" \"nodemon ./server/bin/www\" ",
-    "forever": "tsc -p ./server && forever start ./server/bin/www --watch",
-    "twc:server:w": "tsc -w -p ./server",
+    "develop": "concurrently \"tsc -w -p ./src\" \"nodemon ./src/bin/www\" ",
+    "forever": "tsc -p ./src && forever start ./src/bin/www --watch",
+    "twc:src:w": "tsc -w -p ./src",
     "typings": "typings install",
-    "postinstall": "typings install && tsc -p ./server"
+    "postinstall": "typings install && tsc -p ./src"
   },
   "author": "",
   "license": "ISC",
