@@ -12,7 +12,8 @@ import * as rp from "request-promise";
 import episodeType from "./episode";
 import showType from "./show";
 
-import * as ShowRepository  from "../bl/ShowRepository";
+import { ShowRepository }  from "../bl/show-repository";
+import { Auth } from "../bl/auth";
 
 export const schema: GraphQLSchema = new GraphQLSchema({
     query: new GraphQLObjectType({
@@ -58,7 +59,8 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                     if (!context.session.name) {
                         throw new Error("You must be logged in!");
                     } else {
-                        var result = ShowRepository.getUserShows(context.session.name).then((doc) => doc.map((show) => {
+                        var showRepository = new ShowRepository();
+                        var result = showRepository.getUserShows(context.session.name).then((doc) => doc.map((show) => {
                             return rp(`http://api.tvmaze.com/shows/${show.tvMazeId}`)
                                 .then((res) => JSON.parse(res));
                         }));
@@ -72,6 +74,25 @@ export const schema: GraphQLSchema = new GraphQLSchema({
     mutation: new GraphQLObjectType({
         name: "RootMutationType",
         fields: {
+            createToken: {
+                type: GraphQLString,
+                args: {
+                    username: {
+                        type: new GraphQLNonNull(GraphQLString)
+                    },
+                    password: {
+                        type: new GraphQLNonNull(GraphQLString)
+                    }
+                },
+                resolve: (parent, args : any, context) => {
+                    var auth = new Auth();
+                    return auth.validatePassword(args.username , args.password).then((validLogin) => {
+                        if (validLogin) {
+                            return args.username;
+                        }
+                    })
+                }
+            },
             setName: {
                 type: GraphQLString,
                 args: {
