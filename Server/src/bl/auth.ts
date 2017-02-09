@@ -11,6 +11,10 @@ class Auth {
 
         return result;
     }
+
+    createUser(username: string, password: string) : any {
+        return UserModel.create({username: username, password: password});
+    }
 }
 
 export { Auth };

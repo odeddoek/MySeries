@@ -93,20 +93,25 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                     })
                 }
             },
-            setName: {
+            createUser: {
                 type: GraphQLString,
                 args: {
-                    name: {
-                        name: "name",
+                    username: {
+                        type: new GraphQLNonNull(GraphQLString)
+                    },
+                    password: {
                         type: new GraphQLNonNull(GraphQLString)
                     }
                 },
                 resolve: (parent, args: any, context: any) => {
-                    if (context.session.name) {
-                        return "You are already logged in!";
-                    }
-                    context.session.name = args.name;
-                    return "Login sucessfully!"
+                    var auth = new Auth();
+                    auth.createUser(args.username, args.password).then((userCreatedSucessfully) => {
+                        if (userCreatedSucessfully) {
+                            return "User created sucessfully!";
+                        } else {
+                            return "User could not be created";
+                        }
+                    })
                 }
             }
         }
