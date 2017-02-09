@@ -1,9 +1,9 @@
-import { UserModel, IUser } from "../models/user";
+import { UserModel, UserSchema, IUser } from "../models/user";
 
 class Auth {
-    validatePassword(username: string, password: string): any {
-        var result : boolean = UserModel.count({ username: username, password: password }).then((res) => {
-            return (res == 1);
+    validatePassword(username: string, password: string): PromiseLike<boolean> {
+        var result : PromiseLike<boolean> = UserModel.count({ username: username, password: password }).then((res) => {
+            return (res === 1);
         }, (err) => {
             console.log(err);
             return false;
@@ -12,8 +12,13 @@ class Auth {
         return result;
     }
 
-    createUser(username: string, password: string) : any {
-        return UserModel.create({username: username, password: password});
+    createUser(username: string, password: string) : PromiseLike<boolean> {
+        return UserModel.create({username: username, password: password}).then((res) => {
+            return true;
+        }, (err) => {
+            console.log(err);
+            return false;
+        });
     }
 }
 

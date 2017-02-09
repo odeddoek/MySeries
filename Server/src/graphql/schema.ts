@@ -84,9 +84,9 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                         type: new GraphQLNonNull(GraphQLString)
                     }
                 },
-                resolve: (parent, args : any, context) => {
+                resolve: (parent, args: any, context) => {
                     var auth = new Auth();
-                    return auth.validatePassword(args.username , args.password).then((validLogin) => {
+                    return auth.validatePassword(args.username, args.password).then((validLogin) => {
                         if (validLogin) {
                             return args.username;
                         }
@@ -105,7 +105,7 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                 },
                 resolve: (parent, args: any, context: any) => {
                     var auth = new Auth();
-                    auth.createUser(args.username, args.password).then((userCreatedSucessfully) => {
+                    return auth.createUser(args.username, args.password).then((userCreatedSucessfully) => {
                         if (userCreatedSucessfully) {
                             return "User created sucessfully!";
                         } else {
