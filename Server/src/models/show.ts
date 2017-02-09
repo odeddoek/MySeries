@@ -1,13 +1,13 @@
-import mongoose = require("mongoose");
+import { Document, Schema, model } from "mongoose";
 
-export interface IShow extends mongoose.Document {
+export interface IShow extends Document {
     tvMazeId: number;
-    user : string;
+    user: string;
 };
 
-export const ShowSchema: mongoose.Schema = new mongoose.Schema({
+export const ShowSchema: Schema = new Schema({
     tvMazeId: { type: Number, required: true },
     user: { type: String, required: true }
 });
 
-export const ShowModel = mongoose.model<IShow>("Show", ShowSchema);
+export const ShowModel = model<IShow>("Show", ShowSchema);

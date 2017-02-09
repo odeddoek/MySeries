@@ -6,10 +6,11 @@ import * as mongoose from "mongoose";
 import * as graphqlHTTP from "express-graphql";
 import { schema } from "./graphql/schema";
 import * as cors from "cors";
-var session = require('express-session');
+import * as session from 'express-session';
 
 class Server {
-    app: any;
+    app: express.Express;
+
     constructor() {
         this.initializeDatabase();
         this.app = express();
