@@ -68,7 +68,7 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                     } else {
                         var showRepository = new ShowRepository();
                         var result = showRepository.getUserShows(context.session.name).then((doc) => doc.map((show) => {
-                            return rp(`http://api.tvmaze.com/shows/${show.tvMazeId}`)
+                            return rp(`http://api.tvmaze.com/shows/${show}`)
                                 .then((res) => JSON.parse(res));
                         }));
                         return result;
@@ -81,6 +81,30 @@ export const schema: GraphQLSchema = new GraphQLSchema({
     mutation: new GraphQLObjectType({
         name: "RootMutationType",
         fields: {
+            followTvShow:
+            {
+                type: showType,
+                args: {
+                    id: {
+                        name: "id",
+                        type: new GraphQLNonNull(GraphQLInt)
+                    }
+                },
+                resolve: (parent, args: any, context: any) => {
+                    if (!context.session.name) {
+                        throw new Error("You must be logged in in order to follow a tv show!");
+                    } else {
+                        var showRepository = new ShowRepository();
+                        return showRepository.addUserTvShow(context.session.name, args.id).then((result) => {
+                            return rp(`http://api.tvmaze.com/shows/${args.id}`)
+                                .then((res) => JSON.parse(res));
+                        }, (err) => {
+                            console.log("err", err);
+                        });
+                    }
+                }
+
+            },
             logout: {
                 type: GraphQLString,
                 resolve: (parent, args: any, context) => {
