@@ -22,7 +22,6 @@ export const schema: GraphQLSchema = new GraphQLSchema({
             schedule: {
                 type: new GraphQLList(episodeType),
                 resolve: (parent, args: any, context: any) => {
-                    console.log(context.session);
                     return rp(`http://api.tvmaze.com/schedule`)
                         .then((res) => JSON.parse(res));
                 }
@@ -74,7 +73,7 @@ export const schema: GraphQLSchema = new GraphQLSchema({
     mutation: new GraphQLObjectType({
         name: "RootMutationType",
         fields: {
-            createToken: {
+            login: {
                 type: GraphQLString,
                 args: {
                     username: {
@@ -88,9 +87,10 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                     var auth = new Auth();
                     return auth.validatePassword(args.username, args.password).then((validLogin) => {
                         if (validLogin) {
-                            return args.username;
+                            context.session.name = args.username;
+                            return "Logged in successfully!";
                         }
-                    })
+                    });
                 }
             },
             createUser: {
@@ -111,7 +111,7 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                         } else {
                             return "User could not be created";
                         }
-                    })
+                    });
                 }
             }
         }
