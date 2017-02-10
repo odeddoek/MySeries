@@ -24,11 +24,13 @@ class TopNavigation extends Component {
           <span/>
           <span/>
           <span/>
+          <span/>
         </span>
 
         <div id="nav-menu" className="nav-right nav-menu">
           <IndexLink to="/" className="nav-item">Home</IndexLink>
           <Link to="/login" className="nav-item">Login</Link>
+          <Link to="/register" className="nav-item">Regiser</Link>
           <Link to="/shows" className="nav-item">Shows list</Link>
           <Link to="/about" className="nav-item">About</Link>
         </div>

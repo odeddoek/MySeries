@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 
-const LoginForm = ({details, action, onChange}) => {
+const UserForm = ({actionName, details, action, onChange}) => {
   return (
     <div className="column is-4 is-offset-4">
-      <h1>Login</h1>
+      <h1>{actionName}</h1>
       <div className="box">
         <label className="label">Username</label>
         <p className="control">
@@ -18,16 +18,19 @@ const LoginForm = ({details, action, onChange}) => {
         </p>
         <hr/>
         <p className="control">
-          <button className="button is-primary" onClick={action}>Login</button>
+          <button className="button is-primary" onClick={action}>{actionName}</button>
           <button className="button is-default">Cancel</button>
         </p>
       </div>
     </div>
   );
-}
-//
-// LoginForm.propTypes = {
-//   details: PropTypes.object.isReqired
-// };
+};
 
-export default LoginForm;
+UserForm.propTypes = {
+  actionName: PropTypes.string.isRequired,
+  details: PropTypes.object.isReqired,
+  action: PropTypes.func.isReqired,
+  onChange: PropTypes.func.isReqired
+};
+
+export default UserForm;

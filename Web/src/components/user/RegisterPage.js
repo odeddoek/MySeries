@@ -7,37 +7,37 @@ import gql from 'graphql-tag';
 import toastr from 'toastr';
 import * as userActions from './../../actions/userActions';
 
-class LoginPage extends Component {
+class RegisterPage extends Component {
 
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      loginDetails: Object.assign({}, this.props.loginDetails),
+      userDetails: Object.assign({}, this.props.userDetails),
       errors: {}
     };
 
-    this.updateLoginState = this.updateLoginState.bind(this);
-    this.login = this.login.bind(this);
+    this.updateRegisterState = this.updateRegisterState.bind(this);
+    this.register = this.register.bind(this);
   }
 
-  updateLoginState(event) {
+  updateRegisterState(event) {
     const field = event.target.name;
-    let loginDetails = this.state.loginDetails;
-    loginDetails[field] = event.target.value;
-    return this.setState({loginDetails});
+    let userDetails = this.state.userDetails;
+    userDetails[field] = event.target.value;
+    return this.setState({userDetails});
   }
 
-  login(event) {
+  register(event) {
     event.preventDefault();
-    const {username, password} = this.state.loginDetails;
+    const {username, password} = this.state.userDetails;
     this.props.mutate({
       variables: {
         username: username,
         password: password
       }
     }).then(() => {
-      toastr.success('Logged in sucessfully!');
+      toastr.success('Registered successfully!');
       this.props.actions.setUser(username);
     }).catch((error) => {
       toastr.error(error);
@@ -47,30 +47,30 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
-        <UserForm actionName="Login" action={this.login} details={this.state.loginDetails} onChange={this.updateLoginState}/>
+        <UserForm actionName="Register" action={this.register} details={this.state.userDetails} onChange={this.updateRegisterState}/>
       </div>
     );
   }
 }
 
-LoginPage.propTypes = {
+RegisterPage.propTypes = {
   mutate: PropTypes.func.isRequired,
-  loginDetails: PropTypes.object.isRequired
+  userDetails: PropTypes.object.isRequired
 };
 
-const loginMutation = gql `
-mutation login($username: String!, $password: String!) {
-  login(username: $username, password: $password)
+const registerMutation = gql `
+mutation createUser($username: String!, $password: String!) {
+  createUser(username: $username, password: $password)
 }`;
 
 function mapStateToProps(state, ownProps) {
 
-  let loginDetails = {
-    username: 'ששש',
+  let userDetails = {
+    username: '',
     password: ''
   };
 
-  return {loginDetails};
+  return {userDetails};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -79,4 +79,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default compose(graphql(loginMutation), connect(mapStateToProps, mapDispatchToProps))(LoginPage);
+export default compose(graphql(registerMutation), connect(mapStateToProps, mapDispatchToProps))(RegisterPage);
