@@ -19,6 +19,12 @@ export const schema: GraphQLSchema = new GraphQLSchema({
     query: new GraphQLObjectType({
         name: "RootQueryType",
         fields: {
+            self: {
+              type: GraphQLString,
+              resolve: (parent, args: any, context: any) => {
+                  return context.session.name;
+              }
+            },
             schedule: {
                 type: new GraphQLList(episodeType),
                 resolve: (parent, args: any, context: any) => {
