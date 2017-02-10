@@ -19,6 +19,7 @@ class TopNavigation extends React.Component {
 
         <div className="nav-right nav-menu">
           <IndexLink to="/" className="nav-item">Home</IndexLink>
+          <Link to="/login" className="nav-item">Login</Link>
           <Link to="/shows" className="nav-item">Shows list</Link>
           <Link to="/about" className="nav-item">About</Link>
         </div>
