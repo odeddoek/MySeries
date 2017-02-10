@@ -8,6 +8,7 @@ import {
 } from "graphql";
 
 import * as rp from "request-promise";
+import * as Promise from "Promise";
 
 import episodeType from "./episode";
 import showType from "./show";
@@ -15,15 +16,16 @@ import showType from "./show";
 import { ShowRepository }  from "../bl/show-repository";
 import { Auth } from "../bl/auth";
 
+
 export const schema: GraphQLSchema = new GraphQLSchema({
     query: new GraphQLObjectType({
         name: "RootQueryType",
         fields: {
             self: {
-              type: GraphQLString,
-              resolve: (parent, args: any, context: any) => {
-                  return context.session.name;
-              }
+                type: GraphQLString,
+                resolve: (parent, args: any, context: any) => {
+                    return context.session.name;
+                }
             },
             schedule: {
                 type: new GraphQLList(episodeType),
@@ -79,6 +81,20 @@ export const schema: GraphQLSchema = new GraphQLSchema({
     mutation: new GraphQLObjectType({
         name: "RootMutationType",
         fields: {
+            logout: {
+                type: GraphQLString,
+                resolve: (parent, args: any, context) => {
+                    return new Promise<string>((resolve, reject) => {
+                        context.session.destroy((err) => {
+                            if (err) {
+                                reject(err);
+                            } else {
+                                resolve("Logged out sucessfully!");
+                            }
+                        });
+                    });
+                }
+            },
             login: {
                 type: GraphQLString,
                 args: {
