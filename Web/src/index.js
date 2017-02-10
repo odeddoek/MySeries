@@ -9,6 +9,7 @@ import configureStore from './store/configureStore';
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 import '../node_modules/bulma/css/bulma.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
+import '../node_modules/toastr/build/toastr.min.css';
 import './styles/styles.scss'; // Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
 import {syncHistoryWithStore} from 'react-router-redux';
 import {loadShows} from './actions/tvShowActions';
