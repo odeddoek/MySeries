@@ -111,6 +111,8 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                         if (validLogin) {
                             context.session.name = args.username;
                             return "Logged in successfully!";
+                        } else {
+                            throw new Error("login failed!");
                         }
                     });
                 }
