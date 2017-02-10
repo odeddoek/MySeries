@@ -133,7 +133,7 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                         if (userCreatedSucessfully) {
                             return "User created sucessfully!";
                         } else {
-                            return "User could not be created";
+                            throw new Error("User could not be created");
                         }
                     });
                 }
