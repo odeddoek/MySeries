@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import TopNavigation from './common/TopNavigation';
+import TopNavigation from './common/navigation/TopNavigation';
 import Footer from './common/Footer';
 
 // This is a class-based component because the current

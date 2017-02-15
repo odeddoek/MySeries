@@ -12,6 +12,7 @@ export default function userReducer(state = initialState.user, action) {
     case types.USER_LOGGED_IN:
       return {
         ...state,
+        loggedIn: true,
         username: action.username
       };
 
