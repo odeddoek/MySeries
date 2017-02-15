@@ -66,7 +66,7 @@ mutation login($username: String!, $password: String!) {
 function mapStateToProps(state, ownProps) {
 
   let loginDetails = {
-    username: 'ששש',
+    username: '',
     password: ''
   };
 
