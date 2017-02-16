@@ -12,12 +12,10 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
 import './styles/styles.scss'; // Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
 import {syncHistoryWithStore} from 'react-router-redux';
-import {loadShows} from './actions/tvShowActions';
 import {client} from './apollo-client';
 import {ApolloProvider} from 'react-apollo';
 
 const store = configureStore();
-store.dispatch(loadShows());
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);

@@ -1,13 +1,19 @@
 import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import {graphql} from 'react-apollo';
+import gql from 'graphql-tag';
 import ShowList from './ShowList';
-import * as showsActions from '../../actions/tvShowActions';
 
 class ShowsPage extends React.Component {
 
   render() {
-    const {shows} = this.props;
+    const isLoading = this.props.data.loading;
+    const shows = this.props.data.shows;
+
+    debugger;
+
+    if (isLoading) {
+      return null;
+    }
 
     return (
       <div>
@@ -19,18 +25,16 @@ class ShowsPage extends React.Component {
 }
 
 ShowsPage.propTypes = {
-  shows: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  shows: PropTypes.array.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
-  return {shows: state.shows};
-}
+const query = gql `{
+  shows {
+    id
+    url
+    name
+    image
+  }
+}`;
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(showsActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShowsPage);
+export default graphql(query)(ShowsPage);

@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
-import ShowPanel from './ShowPanel';
+import ShowListRow from './ShowListRow';
 
 const ShowList = ({shows}) => {
   return (
       <div className="columns is-multiline">
-        {shows.map(show => <ShowPanel key={show} showId={show}/>)}
+        {shows.map(show => <ShowListRow key={show.id} show={show}/>)}
       </div>
   );
 };
