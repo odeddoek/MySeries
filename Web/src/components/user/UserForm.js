@@ -28,9 +28,9 @@ const UserForm = ({actionName, details, action, onChange}) => {
 
 UserForm.propTypes = {
   actionName: PropTypes.string.isRequired,
-  details: PropTypes.object.isReqired,
-  action: PropTypes.func.isReqired,
-  onChange: PropTypes.func.isReqired
+  details: PropTypes.object.isRequired,
+  action: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default UserForm;
