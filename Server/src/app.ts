@@ -23,7 +23,11 @@ class Server {
     }
 
     config() {
-        this.app.use(cors());
+        var corsOptions = {
+            origin: 'http://localhost:3001',
+            credentials: true
+        }
+        this.app.use(cors(corsOptions));
         this.app.use(json());
         this.app.use(urlencoded({ extended: true }));
         this.app.use((err, req, res, next) => {
