@@ -55,13 +55,16 @@ export default new GraphQLObjectType({
         image: {
             type: GraphQLString,
             resolve: (root) => {
-                return root.image.original;
+                if (root.image) {
+                    return root.image.original;
+                }
+
+                return null;
             }
         },
         episodes: {
             type: new GraphQLList(episodeType),
             resolve: (root) => {
-                console.log(`http://api.tvmaze.com/shows/${root.id}/episodes`);
                 return rp(`http://api.tvmaze.com/shows/${root.id}/episodes`)
                     .then((res) => JSON.parse(res));
             }
