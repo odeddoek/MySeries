@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import {graphql, compose} from 'react-apollo';
-import UserForm from './UserForm';
+import LoginForm from './LoginForm';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import gql from 'graphql-tag';
@@ -17,11 +17,29 @@ class LoginPage extends Component {
       errors: {}
     };
 
-    this.updateLoginState = this.updateLoginState.bind(this);
+    this.updateLoginDetails = this.updateLoginDetails.bind(this);
     this.login = this.login.bind(this);
   }
 
-  updateLoginState(event) {
+  loginFormIsValid() {
+    let formIsValid = true;
+    let errors = {};
+
+    if (this.state.loginDetails.username.length < 4) {
+      errors.username = 'Username must be at least 4 characters.';
+      formIsValid = false;
+    }
+
+    if (this.state.loginDetails.password.length < 8) {
+      errors.password = 'Password must be at least 8 characters.';
+      formIsValid = false;
+    }
+
+    this.setState({errors: errors});
+    return formIsValid;
+  }
+
+  updateLoginDetails(event) {
     const field = event.target.name;
     let loginDetails = this.state.loginDetails;
     loginDetails[field] = event.target.value;
@@ -30,6 +48,11 @@ class LoginPage extends Component {
 
   login(event) {
     event.preventDefault();
+
+    if (!this.loginFormIsValid()) {
+      return;
+    }
+
     const {username, password} = this.state.loginDetails;
     this.props.mutate({
       variables: {
@@ -47,7 +70,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
-        <UserForm actionName="Login" action={this.login} details={this.state.loginDetails} onChange={this.updateLoginState}/>
+        <LoginForm actionName="Login" action={this.login} details={this.state.loginDetails} onChange={this.updateLoginDetails} errors={this.state.errors}/>
       </div>
     );
   }
@@ -56,9 +79,7 @@ class LoginPage extends Component {
 LoginPage.propTypes = {
   mutate: PropTypes.func.isRequired,
   loginDetails: PropTypes.object.isRequired,
-  actions: PropTypes.shape({
-    setUser: PropTypes.func.isRequired
-  })
+  actions: PropTypes.shape({setUser: PropTypes.func.isRequired})
 };
 
 const loginMutation = gql `

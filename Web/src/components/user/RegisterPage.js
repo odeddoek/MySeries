@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import {graphql, compose} from 'react-apollo';
-import UserForm from './UserForm';
+import RegisterForm from './RegisterForm';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import gql from 'graphql-tag';
@@ -17,19 +17,48 @@ class RegisterPage extends Component {
       errors: {}
     };
 
-    this.updateRegisterState = this.updateRegisterState.bind(this);
+    this.updateRegisterDetails = this.updateRegisterDetails.bind(this);
     this.register = this.register.bind(this);
   }
 
-  updateRegisterState(event) {
+  updateRegisterDetails(event) {
     const field = event.target.name;
     let userDetails = this.state.userDetails;
     userDetails[field] = event.target.value;
     return this.setState({userDetails});
   }
 
+  registerFormIsValid() {
+    let formIsValid = true;
+    let errors = {};
+    const {username, password, repeatPassword} = this.state.userDetails;
+
+    if (username.length < 4) {
+      errors.username = 'Username must be at least 4 characters.';
+      formIsValid = false;
+    }
+
+    if (password.length < 8) {
+      errors.password = 'Password must be at least 8 characters.';
+      formIsValid = false;
+    }
+
+    if (password != repeatPassword) {
+      errors.repeatPassword = 'Repeat password must match password.';
+      formIsValid = false;
+    }
+
+    this.setState({errors: errors});
+    return formIsValid;
+  }
+
   register(event) {
     event.preventDefault();
+
+    if (!this.registerFormIsValid()) {
+      return;
+    }
+
     const {username, password} = this.state.userDetails;
     this.props.mutate({
       variables: {
@@ -47,7 +76,7 @@ class RegisterPage extends Component {
   render() {
     return (
       <div>
-        <UserForm actionName="Register" action={this.register} details={this.state.userDetails} onChange={this.updateRegisterState}/>
+        <RegisterForm actionName="Register" action={this.register} details={this.state.userDetails} onChange={this.updateRegisterDetails} errors={this.state.errors}/>
       </div>
     );
   }
@@ -56,9 +85,7 @@ class RegisterPage extends Component {
 RegisterPage.propTypes = {
   mutate: PropTypes.func.isRequired,
   userDetails: PropTypes.object.isRequired,
-  actions: PropTypes.shape({
-    setUser: PropTypes.func.isRequired
-  })
+  actions: PropTypes.shape({setUser: PropTypes.func.isRequired})
 };
 
 const registerMutation = gql `
