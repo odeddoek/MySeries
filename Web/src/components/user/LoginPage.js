@@ -55,7 +55,10 @@ class LoginPage extends Component {
 
 LoginPage.propTypes = {
   mutate: PropTypes.func.isRequired,
-  loginDetails: PropTypes.object.isRequired
+  loginDetails: PropTypes.object.isRequired,
+  actions: PropTypes.shape({
+    setUser: PropTypes.func.isRequired
+  })
 };
 
 const loginMutation = gql `

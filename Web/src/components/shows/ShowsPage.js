@@ -9,8 +9,6 @@ class ShowsPage extends React.Component {
     const isLoading = this.props.data.loading;
     const shows = this.props.data.shows;
 
-    debugger;
-
     if (isLoading) {
       return null;
     }
@@ -25,6 +23,10 @@ class ShowsPage extends React.Component {
 }
 
 ShowsPage.propTypes = {
+  data: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    shows: PropTypes.array.isRequired
+  }),
   shows: PropTypes.array.isRequired
 };
 

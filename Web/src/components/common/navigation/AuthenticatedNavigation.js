@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import NavigationLink from './NavigationLink';
 import NavigationIndexLink from './NavigationIndexLink';
 
@@ -19,6 +19,10 @@ const AuthenticatedNavigation = ({toggleMenu}) => {
       </div>
     </div>
   );
+};
+
+AuthenticatedNavigation.propTypes = {
+  toggleMenu: PropTypes.func.isRequired
 };
 
 export default AuthenticatedNavigation;

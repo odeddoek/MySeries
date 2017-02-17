@@ -6,5 +6,4 @@ const networkInterface = createNetworkInterface({
     credentials: 'include'
   }
 });
-debugger;
 export const client = new ApolloClient({networkInterface});

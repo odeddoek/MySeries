@@ -31,8 +31,10 @@ class TopNavigation extends Component {
   }
 }
 
-TopNavigation.PropTypes = {
-  user: PropTypes.object.isRequired
+TopNavigation.propTypes = {
+  user: PropTypes.shape({
+    loggedIn: PropTypes.bool.isRequired
+  })
 };
 
 function mapStateToProps(state, ownProps) {

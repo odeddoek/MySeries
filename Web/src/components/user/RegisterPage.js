@@ -55,7 +55,10 @@ class RegisterPage extends Component {
 
 RegisterPage.propTypes = {
   mutate: PropTypes.func.isRequired,
-  userDetails: PropTypes.object.isRequired
+  userDetails: PropTypes.object.isRequired,
+  actions: PropTypes.shape({
+    setUser: PropTypes.func.isRequired
+  })
 };
 
 const registerMutation = gql `
