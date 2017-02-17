@@ -10,11 +10,13 @@ const AuthenticatedNavigation = ({toggleMenu}) => {
         <span/>
         <span/>
         <span/>
+        <span/>
       </span>
 
       <div id="nav-menu" className="nav-right nav-menu">
         <NavigationIndexLink to="/" pageName="Home"/>
-        <NavigationLink to="/shows" pageName="Shows list"/>
+        <NavigationLink to="/shows" pageName="My Shows"/>
+        <NavigationLink to="/search" pageName="Search shows"/>
         <NavigationLink to="/about" pageName="About"/>
       </div>
     </div>

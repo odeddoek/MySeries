@@ -60,6 +60,18 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                         .then((res) => JSON.parse(res));
                 }
             },
+            findShows: {
+                type: new GraphQLList(showType),
+                args: {
+                    name: {
+                        type: new GraphQLNonNull(GraphQLString)
+                    }
+                },
+                resolve: (parent, args: any, context: any) => {
+                    return rp(`http://api.tvmaze.com/search/shows?q=${args.name}`)
+                        .then((res) => JSON.parse(res).map((show) => show.show));
+                }
+            },
             shows: {
                 type: new GraphQLList(showType),
                 resolve: (parent, args: any, context: any) => {

@@ -16,7 +16,7 @@ class ShowsPage extends React.Component {
     return (
       <div>
         <h1>Shows</h1>
-        <ShowList shows={shows}/>
+        <ShowList shows={shows} following={true}/>
       </div>
     );
   }
