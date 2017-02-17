@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-const ShowListRow = ({show}) => {
+const ShowListItem = ({show}) => {
   return (
     <div className="column is-2">
       <div className="panel">
@@ -13,8 +13,8 @@ const ShowListRow = ({show}) => {
   );
 };
 
-ShowListRow.propTypes = {
+ShowListItem.propTypes = {
   show: PropTypes.object.isRequired
 };
 
-export default ShowListRow;
+export default ShowListItem;
