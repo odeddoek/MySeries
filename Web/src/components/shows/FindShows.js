@@ -4,6 +4,8 @@ import gql from 'graphql-tag';
 import ShowList from './ShowList';
 import toastr from 'toastr';
 import {connect} from 'react-redux';
+import Loading from 'react-loading-spinner';
+import Spinner from './../common/Spinner';
 
 class FindShows extends React.Component {
 
@@ -51,10 +53,6 @@ class FindShows extends React.Component {
     const isLoading = this.props.data.loading;
     const shows = this.props.data.shows;
 
-    if (isLoading) {
-      return null;
-    }
-
     return (
       <div>
         <h1>Find shows</h1>
@@ -64,7 +62,9 @@ class FindShows extends React.Component {
             Search
           </a>
         </p>
-        <ShowList shows={shows} following={false} followAction={this.followShow}/>
+        <Loading isLoading={isLoading} spinner={Spinner}>
+          {shows && <ShowList shows={shows} following={false} followAction={this.followShow}/>}
+        </Loading>
       </div>
     );
   }
