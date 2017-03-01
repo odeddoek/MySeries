@@ -19,6 +19,9 @@ class ShowRepository {
             console.log("addUserTvShow failed: ", err);
         });
     }
+    unfollowTvShow(user: string, tvShow: number) {
+        return UserModel.update( {username: user},  { $pullAll: {tvShows: [tvShow] } } );
+    }
 }
 
 export { ShowRepository };

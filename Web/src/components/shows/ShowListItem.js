@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-const ShowListItem = ({show, isFollowed, onClick}) => {
+const ShowListItem = ({show, actionText, action}) => {
   return (
     <div className="column is-2">
       <div className="card">
@@ -17,7 +17,7 @@ const ShowListItem = ({show, isFollowed, onClick}) => {
           </div>
         </div>
         <footer className="card-footer has-text-centered">
-          {!isFollowed && <a className="card-footer-item" onClick={() => onClick(show.id)}>Follow</a>}
+          {actionText && <a className="card-footer-item" onClick={() => action(show.id)}>{actionText}</a>}
         </footer>
       </div>
     </div>
@@ -26,8 +26,8 @@ const ShowListItem = ({show, isFollowed, onClick}) => {
 
 ShowListItem.propTypes = {
   show: PropTypes.object.isRequired,
-  isFollowed: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired
+  actionText: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired
 };
 
 export default ShowListItem;

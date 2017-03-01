@@ -115,7 +115,30 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                         });
                     }
                 }
-
+            },
+            unfollowTvShow:
+            {
+                type: GraphQLString,
+                args: {
+                    id: {
+                        name: "id",
+                        type: new GraphQLNonNull(GraphQLInt)
+                    }
+                },
+                resolve: (parent, args: any, context: any) => {
+                    if (!context.session.name) {
+                        throw new Error("You must be logged in in order to unfollow a tv show!");
+                    } else {
+                        var showRepository = new ShowRepository();
+                        return showRepository.unfollowTvShow(context.session.name, args.id).then((result) => {
+                          console.log(result);
+                            return "Unfollowed TV Show successfully!";
+                        }, (err) => {
+                            console.log("err", err);
+                            return err;
+                        });
+                    }
+                }
             },
             logout: {
                 type: GraphQLString,

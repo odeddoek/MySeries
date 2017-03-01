@@ -60,7 +60,7 @@ class FindShows extends React.Component {
           <button className="button is-info" type="submit">Search</button>
         </form>
         <Loading isLoading={isLoading} spinner={Spinner}>
-          {shows && <ShowList shows={shows} following={false} onClick={this.followShow}/>}
+          {shows && <ShowList shows={shows} actionText="Follow" action={this.followShow}/>}
         </Loading>
       </div>
     );
@@ -81,12 +81,12 @@ const findShowGql = gql `query findShows ($name: String!){
   }
 }`;
 
-const followTvShow = gql `mutation ($id: Int!) {
+const followTvShowMutation = graphql(gql `mutation ($id: Int!) {
   followTvShow (id: $id) {
     id
     name
   }
-}`;
+}`);
 
 function mapStateToProps(state, ownProps) {
   let searchDetails = {
@@ -96,7 +96,7 @@ function mapStateToProps(state, ownProps) {
   return {searchDetails};
 }
 
-let findShowQuery = graphql(findShowGql, {
+const findShowQuery = graphql(findShowGql, {
   options({name}) {
     return {
       variables: {
@@ -105,7 +105,5 @@ let findShowQuery = graphql(findShowGql, {
     };
   }
 });
-
-let followTvShowMutation = graphql(followTvShow);
 
 export default compose(findShowQuery, followTvShowMutation, connect(mapStateToProps))(FindShows);
