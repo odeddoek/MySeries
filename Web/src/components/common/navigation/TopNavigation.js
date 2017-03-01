@@ -16,14 +16,14 @@ class TopNavigation extends Component {
   }
 
   render() {
-    const {loggedIn} = this.props.user;
+    const {username} = this.props.user;
     return (
       <nav className="nav">
         <div className="nav-left">
           <a href="#" className="nav-item logo-text">MySerias</a>
         </div>
 
-        {loggedIn
+        {username
           ? <AuthenticatedNavigation toggleMenu={this.toggleMenu}/>
           : <GuestNavigation toggleMenu={this.toggleMenu}/>}
       </nav>
@@ -33,7 +33,7 @@ class TopNavigation extends Component {
 
 TopNavigation.propTypes = {
   user: PropTypes.shape({
-    loggedIn: PropTypes.bool.isRequired
+    username: PropTypes.string
   })
 };
 

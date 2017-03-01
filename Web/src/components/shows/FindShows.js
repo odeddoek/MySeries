@@ -13,8 +13,7 @@ class FindShows extends React.Component {
     super(props, context);
 
     this.state = {
-      searchDetails: Object.assign({}, this.props.searchDetails),
-      errors: {}
+      searchDetails: Object.assign({}, this.props.searchDetails)
     };
 
     this.updateSearchDetails = this.updateSearchDetails.bind(this);
