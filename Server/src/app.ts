@@ -35,7 +35,7 @@ class Server {
             err.status = 404;
             next(err);
         });
-        this.app.use(session({ secret: 'secret', cookie: { maxAge: 30000 } }));
+        this.app.use(session({ secret: 'secret', cookie: { maxAge: 20 * 60 * 1000 } }));
     }
 
     initializeDatabase() {
