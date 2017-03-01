@@ -67,7 +67,7 @@ class RegisterPage extends Component {
       }
     }).then(() => {
       toastr.success('Registered successfully!');
-      this.props.actions.setUser(username);
+      this.props.router.push('');
     }).catch((error) => {
       toastr.error(error);
     });
@@ -85,7 +85,8 @@ class RegisterPage extends Component {
 RegisterPage.propTypes = {
   mutate: PropTypes.func.isRequired,
   userDetails: PropTypes.object.isRequired,
-  actions: PropTypes.shape({setUser: PropTypes.func.isRequired})
+  actions: PropTypes.shape({setUser: PropTypes.func.isRequired}),
+  router: PropTypes.object.isRequired
 };
 
 const registerMutation = gql `

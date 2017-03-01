@@ -21,6 +21,15 @@ class LoginPage extends Component {
     this.login = this.login.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    const isLoggingIn = !prevProps.user.username && this.props.user.username;
+
+    if (isLoggingIn) {
+      this.props.router.push('');
+    }
+  }
+
+
   loginFormIsValid() {
     let formIsValid = true;
     let errors = {};
@@ -79,7 +88,9 @@ class LoginPage extends Component {
 LoginPage.propTypes = {
   mutate: PropTypes.func.isRequired,
   loginDetails: PropTypes.object.isRequired,
-  actions: PropTypes.shape({setUser: PropTypes.func.isRequired})
+  actions: PropTypes.shape({setUser: PropTypes.func.isRequired}),
+  user: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired
 };
 
 const loginMutation = gql `
@@ -88,13 +99,12 @@ mutation login($username: String!, $password: String!) {
 }`;
 
 function mapStateToProps(state, ownProps) {
-
   let loginDetails = {
     username: '',
     password: ''
   };
 
-  return {loginDetails};
+  return {loginDetails, user: state.user};
 }
 
 function mapDispatchToProps(dispatch) {
