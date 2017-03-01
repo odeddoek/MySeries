@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
 import ShowListItem from './ShowListItem';
 
-const ShowList = ({shows, following, followAction}) => {
+const ShowList = ({shows, following, onClick}) => {
   return (
       <div className="columns is-multiline">
-        {shows.map(show => <ShowListItem key={show.id} show={show} isFollowed={following} followAction={followAction}/>)}
+        {shows.map(show => <ShowListItem key={show.id} show={show} isFollowed={following} onClick={onClick}/>)}
       </div>
   );
 };

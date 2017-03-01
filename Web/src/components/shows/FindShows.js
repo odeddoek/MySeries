@@ -62,7 +62,7 @@ class FindShows extends React.Component {
           </a>
         </p>
         <Loading isLoading={isLoading} spinner={Spinner}>
-          {shows && <ShowList shows={shows} following={false} followAction={this.followShow}/>}
+          {shows && <ShowList shows={shows} following={false} onClick={this.followShow}/>}
         </Loading>
       </div>
     );
@@ -70,9 +70,8 @@ class FindShows extends React.Component {
 }
 
 FindShows.propTypes = {
-  data: PropTypes.shape({loading: PropTypes.bool.isRequired, shows: PropTypes.array.isRequired, refetch: PropTypes.func.isRequired}),
-  searchDetails: PropTypes.shape({showName: PropTypes.string.isRequired}),
-  shows: PropTypes.array.isRequired
+  data: PropTypes.shape({loading: PropTypes.bool.isRequired, shows: PropTypes.array, refetch: PropTypes.func.isRequired}),
+  searchDetails: PropTypes.shape({showName: PropTypes.string.isRequired})
 };
 
 const findShowGql = gql `query findShows ($name: String!){

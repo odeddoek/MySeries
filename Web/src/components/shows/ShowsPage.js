@@ -23,8 +23,7 @@ class ShowsPage extends React.Component {
 }
 
 ShowsPage.propTypes = {
-  data: PropTypes.shape({loading: PropTypes.bool.isRequired, shows: PropTypes.array.isRequired}),
-  shows: PropTypes.array.isRequired
+  data: PropTypes.shape({loading: PropTypes.bool.isRequired, shows: PropTypes.array})
 };
 
 const query = gql `{
