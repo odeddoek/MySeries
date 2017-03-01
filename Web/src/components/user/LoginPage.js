@@ -79,7 +79,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
-        <LoginForm actionName="Login" action={this.login} details={this.state.loginDetails} onChange={this.updateLoginDetails} errors={this.state.errors}/>
+        <LoginForm action={this.login} details={this.state.loginDetails} onChange={this.updateLoginDetails} errors={this.state.errors}/>
       </div>
     );
   }

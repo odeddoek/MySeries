@@ -76,7 +76,7 @@ class RegisterPage extends Component {
   render() {
     return (
       <div>
-        <RegisterForm actionName="Register" action={this.register} details={this.state.userDetails} onChange={this.updateRegisterDetails} errors={this.state.errors}/>
+        <RegisterForm action={this.register} details={this.state.userDetails} onChange={this.updateRegisterDetails} errors={this.state.errors}/>
       </div>
     );
   }

@@ -55,12 +55,10 @@ class FindShows extends React.Component {
     return (
       <div>
         <h1>Find shows</h1>
-        <p className="control has-addons">
+        <form className="control has-addons" onSubmit={this.searchShow}>
           <input name="showName" className="input" type="text" placeholder="Find a repository" value={this.state.searchDetails.showName} onChange={this.updateSearchDetails}/>
-          <a className="button is-info" onClick={this.searchShow}>
-            Search
-          </a>
-        </p>
+          <button className="button is-info" type="submit">Search</button>
+        </form>
         <Loading isLoading={isLoading} spinner={Spinner}>
           {shows && <ShowList shows={shows} following={false} onClick={this.followShow}/>}
         </Loading>
