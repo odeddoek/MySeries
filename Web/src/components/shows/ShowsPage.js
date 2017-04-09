@@ -1,11 +1,12 @@
 import React, {PropTypes} from 'react';
 import {graphql, compose} from 'react-apollo';
-import gql from 'graphql-tag';
 import ShowList from './ShowList';
 import Loading from 'react-loading-spinner';
 import 'react-loading-spinner/src/css/index.css';
 import Spinner from './../common/Spinner';
 import toastr from 'toastr';
+import gql from 'graphql-tag';
+import GetUserShowsQuery from '../../queries/GetUserShowsQuery';
 
 class ShowsPage extends React.Component {
 
@@ -19,7 +20,8 @@ class ShowsPage extends React.Component {
     this.props.mutate({
       variables: {
         id: showId
-      }
+      },
+      refetchQueries: [{query: GetUserShowsQuery}]
     }).then(({data}) => {
       toastr.success(`${data.unfollowTvShow}`);
     }).catch((error) => {
@@ -46,14 +48,7 @@ ShowsPage.propTypes = {
   data: PropTypes.shape({loading: PropTypes.bool.isRequired, shows: PropTypes.array})
 };
 
-const query = graphql(gql `{
-  shows {
-    id
-    url
-    name
-    image
-  }
-}`);
+const query = graphql(GetUserShowsQuery);
 
 const unfollowTvShow = graphql(gql `mutation ($id: Int!) {
   unfollowTvShow (id: $id)

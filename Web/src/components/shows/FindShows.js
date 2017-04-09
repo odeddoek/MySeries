@@ -6,6 +6,7 @@ import toastr from 'toastr';
 import {connect} from 'react-redux';
 import Loading from 'react-loading-spinner';
 import Spinner from './../common/Spinner';
+import GetUserShowsQuery from '../../queries/GetUserShowsQuery';
 
 class FindShows extends React.Component {
 
@@ -40,7 +41,8 @@ class FindShows extends React.Component {
     this.props.mutate({
       variables: {
         id: showId
-      }
+      },
+      refetchQueries: [{query: GetUserShowsQuery}]
     }).then(({data}) => {
       toastr.success(`Following ${data.followTvShow.name} successfully!`);
     }).catch((error) => {
