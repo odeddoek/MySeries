@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import Input from '../common/form/Input';
+import Button from '../common/form/Button';
 
 const RegisterForm = ({details, action, onChange, errors}) => {
   return (
@@ -11,8 +12,8 @@ const RegisterForm = ({details, action, onChange, errors}) => {
         <Input type="password" name="repeatPassword" label="Repeat Password" placeholder="Repeat Password" onChange={onChange} value={details.repeatPassword} error={errors.repeatPassword} icon="fa fa-lock"/>
         <hr/>
         <p className="control">
-          <button className="button is-primary" type="submit">Register</button>
-          <button className="button is-default">Cancel</button>
+          <Button color="is-primary" type="submit">Register</Button>
+          <Button type="reset">Cancel</Button>
         </p>
       </form>
     </div>
