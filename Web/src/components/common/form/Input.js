@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 
-const TextInput = ({
+const Input = ({
+  type,
   name,
   label,
   onChange,
@@ -12,7 +13,7 @@ const TextInput = ({
 }) => {
 
   let inputClass = `input ${color}`;
-  let controlClass = 'control'
+  let controlClass = 'control';
 
   if (error && error.length > 0) {
     inputClass += " " + 'is-danger';
@@ -27,7 +28,7 @@ const TextInput = ({
     <div>
       <label className="label" htmlFor={name}>{label}</label>
       <p className={controlClass}>
-        <input name={name} className={inputClass} type="text" placeholder={placeholder} value={value} onChange={onChange}/> {icon && <span className="icon is-small">
+        <input name={name} className={inputClass} type={type} placeholder={placeholder} value={value} onChange={onChange}/> {icon && <span className="icon is-small">
           <i className={icon}/>
         </span>}
         {error && <span className="help is-danger">{error}</span>}
@@ -36,7 +37,8 @@ const TextInput = ({
   );
 };
 
-TextInput.propTypes = {
+Input.propTypes = {
+  type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -47,4 +49,4 @@ TextInput.propTypes = {
   icon: PropTypes.string
 };
 
-export default TextInput;
+export default Input;

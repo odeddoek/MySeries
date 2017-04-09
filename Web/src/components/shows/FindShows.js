@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import Loading from 'react-loading-spinner';
 import Spinner from './../common/Spinner';
 import GetUserShowsQuery from '../../queries/GetUserShowsQuery';
+import Input from '../common/form/Input';
 
 class FindShows extends React.Component {
 
@@ -58,7 +59,7 @@ class FindShows extends React.Component {
       <div>
         <h1>Find shows</h1>
         <form className="control has-addons" onSubmit={this.searchShow}>
-          <input name="showName" className="input" type="text" placeholder="Find a repository" value={this.state.searchDetails.showName} onChange={this.updateSearchDetails}/>
+          <Input name="showName" className="input" type="text" placeholder="Find a repository" value={this.state.searchDetails.showName} onChange={this.updateSearchDetails}/>
           <button className="button is-info" type="submit">Search</button>
         </form>
         <Loading isLoading={isLoading} spinner={Spinner}>
