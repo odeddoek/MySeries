@@ -21,7 +21,11 @@ class ShowsPage extends React.Component {
       variables: {
         id: showId
       },
-      refetchQueries: [{query: GetUserShowsQuery}]
+      refetchQueries: [
+        {
+          query: GetUserShowsQuery
+        }
+      ]
     }).then(({data}) => {
       toastr.success(`${data.unfollowTvShow}`);
     }).catch((error) => {
@@ -34,12 +38,14 @@ class ShowsPage extends React.Component {
     const shows = this.props.data.shows;
 
     return (
-      <div>
-        <h1>Shows</h1>
-        <Loading isLoading={isLoading} spinner={Spinner}>
-          {shows && <ShowList shows={shows} actionText="Unfollow" action={this.unfollowShow}/>}
-        </Loading>
-      </div>
+      <section className="section">
+        <div className="container content">
+          <h1>Shows</h1>
+          <Loading isLoading={isLoading} spinner={Spinner}>
+            {shows && <ShowList shows={shows} actionText="Unfollow" action={this.unfollowShow}/>}
+          </Loading>
+        </div>
+      </section>
     );
   }
 }

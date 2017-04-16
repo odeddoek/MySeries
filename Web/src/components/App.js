@@ -10,11 +10,7 @@ class App extends React.Component {
     return (
       <div>
         <TopNavigation/>
-        <section className="section">
-          <div className="container content">
-            {this.props.children}
-          </div>
-        </section>
+        {this.props.children}
         <Footer/>
       </div>
     );

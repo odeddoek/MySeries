@@ -56,7 +56,8 @@ class FindShows extends React.Component {
     const shows = this.props.data.shows;
 
     return (
-      <div>
+      <section className="section">
+        <div className="container content">
         <h1>Find shows</h1>
         <form className="control has-addons" onSubmit={this.searchShow}>
           <Input name="showName" className="input" type="text" placeholder="Find a repository" value={this.state.searchDetails.showName} onChange={this.updateSearchDetails}/>
@@ -66,6 +67,7 @@ class FindShows extends React.Component {
           {shows && <ShowList shows={shows} actionText="Follow" action={this.followShow}/>}
         </Loading>
       </div>
+    </section>
     );
   }
 }

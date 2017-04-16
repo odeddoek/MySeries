@@ -18,23 +18,23 @@ class TopNavigation extends Component {
   render() {
     const {username} = this.props.user;
     return (
-      <nav className="nav">
-        <div className="nav-left">
-          <a href="#" className="nav-item logo-text">MySerias</a>
-        </div>
+      <nav className="nav has-shadow">
+        <div className="container">
+          <div className="nav-left">
+            <a href="#" className="nav-item logo-text">MySerias</a>
+          </div>
 
-        {username
-          ? <AuthenticatedNavigation toggleMenu={this.toggleMenu}/>
-          : <GuestNavigation toggleMenu={this.toggleMenu}/>}
+          {username
+            ? <AuthenticatedNavigation toggleMenu={this.toggleMenu}/>
+            : <GuestNavigation toggleMenu={this.toggleMenu}/>}
+        </div>
       </nav>
     );
   }
 }
 
 TopNavigation.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string
-  })
+  user: PropTypes.shape({username: PropTypes.string})
 };
 
 function mapStateToProps(state, ownProps) {
