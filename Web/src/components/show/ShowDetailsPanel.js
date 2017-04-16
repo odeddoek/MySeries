@@ -1,24 +1,24 @@
 import React from 'react';
+import Pane from './../common/tabs/Pane';
+import Tabs from './../common/tabs/Tabs';
+import EpisodeTab from './EpisodeTab';
+import CastTab from './CastTab';
+import ReviewsTab from './ReviewsTab';
 
 const ShowDetailsPanel = () => {
   return (
     <div>
-      <div className="tabs">
-        <ul>
-          <li className="is-active">
-            <a>Episodes</a>
-          </li>
-          <li>
-            <a>Cast</a>
-          </li>
-          <li>
-            <a>Reviews</a>
-          </li>
-        </ul>
-      </div>
-      <div className="box">
-        Secret Service agent Ethan Burke arrives in the bucolic town of Wayward Pines, ID, on a mission to find two missing federal agents. But instead of answers, Ethan's investigation only turns up more questions. What's wrong with Wayward Pines? Each step closer to the truth takes Ethan further from the life he knew, from the husband and father he was, until he must face the terrifying reality that he may never get out of Wayward Pines alive.
-      </div>
+      <Tabs>
+        <Pane label="Episodes">
+          <EpisodeTab />
+        </Pane>
+        <Pane label="Cast">
+          <CastTab />
+        </Pane>
+        <Pane label="Reviews">
+          <ReviewsTab />
+        </Pane>
+      </Tabs>
     </div>
   );
 };
