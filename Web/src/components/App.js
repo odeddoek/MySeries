@@ -11,7 +11,6 @@ class App extends React.Component {
       <div>
         <TopNavigation/>
         {this.props.children}
-        <Footer/>
       </div>
     );
   }
