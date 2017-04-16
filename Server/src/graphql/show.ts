@@ -41,7 +41,7 @@ export default new GraphQLObjectType({
             type: GraphQLInt
         },
         premiered: {
-            type: GraphQLInt
+            type: GraphQLString
         },
         weight: {
             type: GraphQLInt
@@ -57,6 +57,16 @@ export default new GraphQLObjectType({
             resolve: (root) => {
                 if (root.image) {
                     return root.image.original;
+                }
+
+                return null;
+            }
+        },
+        network: {
+            type: GraphQLString,
+            resolve: (root) => {
+                if (root.network) {
+                    return root.network.name;
                 }
 
                 return null;
