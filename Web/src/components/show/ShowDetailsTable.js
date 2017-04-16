@@ -1,27 +1,38 @@
 import React from 'react';
 
-const ShowDetailsTable = () => {
+const ShowDetailsTable = ({show}) => {
+
   return (
     <table className="table">
       <tbody>
         <tr>
-          <td><strong>Airs on:</strong></td>
-          <td>Fox</td>
+          <td>
+            <strong>Airs on:</strong>
+          </td>
+          <td>{show.network}</td>
         </tr>
         <tr>
-          <td><strong>Status:</strong></td>
-          <td>To Be Determined</td>
+          <td>
+            <strong>Status:</strong>
+          </td>
+          <td>{show.status}</td>
         </tr>
         <tr>
-          <td><strong>Scheduled:</strong></td>
+          <td>
+            <strong>Scheduled:</strong>
+          </td>
           <td>Wednesdays at 22:00</td>
         </tr>
         <tr>
-          <td><strong>Genres:</strong></td>
-          <td>Drama | Science-Fiction | Mystery</td>
+          <td>
+            <strong>Genres:</strong>
+          </td>
+          <td>{show.genres.map((genre) => {return genre + ' '})}</td>
         </tr>
         <tr>
-          <td><strong>Episodes ordered:</strong></td>
+          <td>
+            <strong>Episodes ordered:</strong>
+          </td>
           <td>25 episodes</td>
         </tr>
       </tbody>

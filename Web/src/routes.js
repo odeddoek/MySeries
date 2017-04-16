@@ -9,14 +9,14 @@ import FindShows from './components/shows/FindShows';
 import ShowsPage from './components/shows/ShowsPage';
 import LoginPage from './components/user/LoginPage';
 import RegisterPage from './components/user/RegisterPage';
-import ShowPage from './components/show/ShowPage';
+import ShowPageContainer from './components/show/ShowPageContainer';
 
 export default(
   <Route path="/" component={App}>
     <IndexRoute component={HomePage}/>
     <Route path="login" component={LoginPage}/>
     <Route path="register" component={RegisterPage}/>
-    <Route path="show" component={ShowPage} />
+    <Route path="show/:id" component={ShowPageContainer} />
     <Route path="shows" component={ShowsPage}/>
     <Route path="search" component={FindShows}/>
     <Route path="about" component={AboutPage}/>

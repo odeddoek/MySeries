@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {Link} from 'react-router';
 
 const ShowListItem = ({show, actionText, action}) => {
   return (
@@ -12,7 +13,7 @@ const ShowListItem = ({show, actionText, action}) => {
         <div className="card-content is-paddingless">
           <div className="content">
             <figure>
-              <img src={show.image}/>
+              <Link to={'/show/' + show.id}><img src={show.image}/></Link>
             </figure>
           </div>
         </div>
