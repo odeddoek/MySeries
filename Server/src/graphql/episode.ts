@@ -36,7 +36,17 @@ export default new GraphQLObjectType({
             type: GraphQLInt
         },
         summary: {
-            type: GraphQLInt
+            type: GraphQLString
+        },
+        image: {
+            type: GraphQLString,
+            resolve: (root) => {
+                if (root.image) {
+                    return root.image.original;
+                }
+
+                return null;
+            }
         }
     }
 });

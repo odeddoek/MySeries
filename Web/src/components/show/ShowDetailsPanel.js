@@ -5,18 +5,18 @@ import EpisodeTab from './EpisodeTab';
 import CastTab from './CastTab';
 import ReviewsTab from './ReviewsTab';
 
-const ShowDetailsPanel = () => {
+const ShowDetailsPanel = ({showId}) => {
   return (
     <div>
       <Tabs>
         <Pane label="Episodes">
-          <EpisodeTab />
+          <EpisodeTab showId={showId} />
         </Pane>
         <Pane label="Cast">
-          <CastTab />
+          <CastTab showId={showId} />
         </Pane>
         <Pane label="Reviews">
-          <ReviewsTab />
+          <ReviewsTab showId={showId} />
         </Pane>
       </Tabs>
     </div>

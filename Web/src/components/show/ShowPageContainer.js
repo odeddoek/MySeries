@@ -12,19 +12,16 @@ class ShowPageContainer extends Component {
     const {loading, show} = this.props.data;
 
     return (
-      <section className="section">
-        <div className="container content">
-          <Loading isLoading={loading} spinner={Spinner}>
-            {show && <ShowPage show={show}/>}
-          </Loading>
-        </div>
-      </section>
+      <Loading isLoading={loading} spinner={Spinner}>
+        {show && <ShowPage show={show}/>}
+      </Loading>
     );
   }
 }
 
 const getShowQuery = gql `query getShow ($id: Int!){
   show : show(id: $id) {
+    id
     name
     image
     genres
