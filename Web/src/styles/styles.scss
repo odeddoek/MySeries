@@ -1,5 +1,4 @@
 /* Styles */
-
 body {
   display: flex;
   min-height: 100vh;
@@ -7,7 +6,7 @@ body {
 }
 
 #app {
-  flex: 1
+  flex: 1;
 }
 
 .logo-text {
@@ -21,5 +20,10 @@ body {
 }
 
 .page-title {
-background-color: #fafafa
+  background-color: #fafafa;
+}
+
+.cast-image{
+  max-width: 80px;
+  max-height: 110px;
 }
