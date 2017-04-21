@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import Spinner from './../common/Spinner';
 import Loading from 'react-loading-spinner';
 
-class EpisodeTabContainer extends Component {
+class EpisodeTab extends Component {
 
   render() {
     const {loading, show} = this.props.data;
@@ -18,7 +18,7 @@ class EpisodeTabContainer extends Component {
   }
 }
 
-const getShowEpisodesQuery = gql `query getShow ($id: Int!){
+const getShowEpisodesQuery = gql `query getShowEpisodes ($id: Int!){
   show : show(id: $id) {
     id
     episodes {
@@ -43,4 +43,4 @@ const getShowEpisodes = graphql(getShowEpisodesQuery, {
   }
 });
 
-export default compose(getShowEpisodes)(EpisodeTabContainer);
+export default compose(getShowEpisodes)(EpisodeTab);
