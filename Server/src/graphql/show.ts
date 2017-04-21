@@ -9,6 +9,7 @@ import {
 import * as rp from 'request-promise';
 
 import episodeType from './episode';
+import castType from './cast';
 
 export default new GraphQLObjectType({
     name: 'Show',
@@ -77,6 +78,15 @@ export default new GraphQLObjectType({
             resolve: (root) => {
                 return rp(`http://api.tvmaze.com/shows/${root.id}/episodes`)
                     .then((res) => JSON.parse(res));
+            }
+        },
+        cast: {
+            type: new GraphQLList(castType),
+            resolve: (root) => {
+                return rp(`http://api.tvmaze.com/shows/${root.id}/cast`)
+                    .then((res) => {
+                        return JSON.parse(res)
+                    });
             }
         }
     }
