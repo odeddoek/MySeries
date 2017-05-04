@@ -7,15 +7,9 @@ class ShowRepository {
         });
     }
 
-    public addUserTvShow(user: string, tvShowNumber: number) {
-        return UserModel.findOne({ username: user }).then((user: IUser) => {
-            if (this.isShowFollowed(user, tvShowNumber)) {
-                user.tvShows.push({ id: tvShowNumber, watchedEpisodes: [] as [any] });
-                return user.save();
-            }
-        }, (err: any) => {
-            console.log("addUserTvShow failed: ", err);
-        });
+    public addUserTvShow(user: string, tvShowId: number) {
+        return UserModel.update({ username: user, 'tvShows.id': { '$ne': tvShowId } },
+            { $push: { "tvShows": { id: tvShowId, watchedEpisodes: [] as [any] } } });
     }
 
     public getWatchedEpisodes(user: string, tvShowId: number) {
@@ -31,10 +25,6 @@ class ShowRepository {
     public markEpisodeAsWatched(user: string, tvShowId: number, season: number, episodeNumber: number) {
         return UserModel.findOneAndUpdate({ username: user, "tvShows.id": tvShowId },
             { $addToSet: { "tvShows.$.watchedEpisodes": { episodeNumber, season } } });
-    }
-
-    private isShowFollowed(user: IUser, tvShowId: number): boolean {
-        return user.tvShows.filter((show) => show.id === tvShowId).length === 0;
     }
 }
 
