@@ -93,6 +93,31 @@ export const schema: GraphQLSchema = new GraphQLSchema({
     mutation: new GraphQLObjectType({
         name: "RootMutationType",
         fields: {
+            markEpisodeAsWatched: {
+                type: GraphQLString,
+                args: {
+                    tvShowId: {
+                        name: "tvShowId",
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    season: {
+                        name: "season",
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    number: {
+                        name: "number",
+                        type: new GraphQLNonNull(GraphQLInt)
+                    }
+                },
+                resolve: (parent, args: any, context: any) => {
+                    if (!context.session.name) {
+                        throw new Error("You must be logged in in order to follow a tv show!");
+                    } else {
+                        var showRepository = new ShowRepository();
+                        return showRepository.markEpisodeAsWatched(context.session.name, args.tvShowId, args.season, args.number);
+                    }
+                }
+            },
             followTvShow:
             {
                 type: showType,
@@ -131,7 +156,6 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                     } else {
                         var showRepository = new ShowRepository();
                         return showRepository.unfollowTvShow(context.session.name, args.id).then((result) => {
-                          console.log(result);
                             return "Unfollowed TV Show successfully!";
                         }, (err) => {
                             console.log("err", err);
