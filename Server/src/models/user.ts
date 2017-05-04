@@ -6,7 +6,13 @@ interface IUser extends Document {
     userToken: string;
     tvShows: [{
         id: number;
-        watchedEpisodes: [number];
+        watchedEpisodes:
+        [
+            {
+                season: number;
+                episodeNumber: number;
+            }
+        ];
     }];
 };
 
@@ -15,8 +21,15 @@ const UserSchema: Schema = new Schema({
     password: String!,
     userToken: String!,
     tvShows: [{
+        _id: false,
         id: Number,
-        watchedEpisodes: [Number]
+        watchedEpisodes: [
+            {
+                season: Number,
+                episodeNumber: Number,
+                _id: false
+            }
+        ]
     }]
 });
 
