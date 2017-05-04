@@ -2,7 +2,7 @@ import { UserModel, IUser } from "../models/user";
 
 class ShowRepository {
     public getUserShows(user: string): PromiseLike<any> {
-        return UserModel.findOne({ username: user }).then((user: IUser) => {
+        return UserModel.findOne({ username: user }, { tvShows: 1 }).then((user: IUser) => {
             return user.tvShows.map(tvShow => tvShow.id);
         });
     }
