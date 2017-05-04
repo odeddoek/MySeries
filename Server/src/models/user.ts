@@ -4,14 +4,20 @@ interface IUser extends Document {
     username: string;
     password: string;
     userToken: string;
-    tvShows: [number];
+    tvShows: [{
+        id: number;
+        watchedEpisodes: [number];
+    }];
 };
 
 const UserSchema: Schema = new Schema({
-    username: { type: String, required: true, index: { unique: true} },
+    username: { type: String, required: true, index: { unique: true } },
     password: String!,
     userToken: String!,
-    tvShows: [Number]
+    tvShows: [{
+        id: Number,
+        watchedEpisodes: [Number]
+    }]
 });
 
 const UserModel = model<IUser>("User", UserSchema);
