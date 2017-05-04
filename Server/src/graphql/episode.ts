@@ -2,6 +2,7 @@ import {
     GraphQLObjectType,
     GraphQLInt,
     GraphQLString,
+    GraphQLBoolean,
     GraphQLID
 } from 'graphql';
 
@@ -46,6 +47,12 @@ export default new GraphQLObjectType({
                 }
 
                 return null;
+            }
+        },
+        watched: {
+            type: GraphQLBoolean,
+            resolve: (root) => {
+                return (root.watched === true);
             }
         }
     }

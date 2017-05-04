@@ -11,6 +11,8 @@ import * as rp from 'request-promise';
 import episodeType from './episode';
 import castType from './cast';
 
+import { ShowRepository }  from "../bl/show-repository";
+
 export default new GraphQLObjectType({
     name: 'Show',
     fields: {
@@ -75,18 +77,30 @@ export default new GraphQLObjectType({
         },
         episodes: {
             type: new GraphQLList(episodeType),
-            resolve: (root) => {
-                return rp(`http://api.tvmaze.com/shows/${root.id}/episodes`)
-                    .then((res) => JSON.parse(res));
+            resolve: (show, args: any, context: any) => {
+                return rp(`http://api.tvmaze.com/shows/${show.id}/episodes`)
+                    .then((res) => {
+                        var episodesData = JSON.parse(res);
+                        var showRepository = new ShowRepository();
+                        return showRepository.getWatchedEpisodes(context.session.name, show.id).then((episodesStatus) => {
+                            episodesStatus.forEach(watchedEpisode => {
+                                episodesData.forEach(episode => {
+                                    if (episode.season === watchedEpisode.season && episode.number === watchedEpisode.episodeNumber) {
+                                        episode.watched = true;
+                                    }
+                                })
+                            });
+
+                            return episodesData;
+                        });
+                    });
             }
         },
         cast: {
             type: new GraphQLList(castType),
             resolve: (root) => {
                 return rp(`http://api.tvmaze.com/shows/${root.id}/cast`)
-                    .then((res) => {
-                        return JSON.parse(res)
-                    });
+                    .then((res) => JSON.parse(res));
             }
         }
     }
