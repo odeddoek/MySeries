@@ -2,8 +2,9 @@ import React, {PropTypes} from 'react';
 import EpisodeListItem from './EpisodeListItem';
 import {sanitize} from 'dompurify';
 import Moment from 'react-moment';
+import watchedImage from '../../images/watched.png';
 
-const EpisodesTable = ({episode}) => {
+const EpisodesTable = ({episode, watchedAction}) => {
 
   const cleanSummary = sanitize(episode.summary, {ALLOWED_TAGS: []});
 
@@ -15,9 +16,11 @@ const EpisodesTable = ({episode}) => {
         </figure>
       </div>
       <div className="media-content">
+        {episode.watched && <img className="watched" src={watchedImage}/>}
         <strong>{episode.name}
           (Season: {episode.season}
-          - Episode: {episode.number})
+          - Episode: {episode.number}) {!episode.watched && <a onClick={() => watchedAction(episode.season, episode.number)}>
+            Mark as watched</a>}
         </strong>
         <small className='is-pulled-right'><Moment format="MMMM Do YYYY, h:mm:ss a" date={episode.airstamp}/></small>
         <br/>
@@ -28,7 +31,8 @@ const EpisodesTable = ({episode}) => {
 };
 
 EpisodesTable.propTypes = {
-  episode: PropTypes.object.isRequired
+  episode: PropTypes.object.isRequired,
+  watchedAction: PropTypes.func.isRequired
 };
 
 export default EpisodesTable;
