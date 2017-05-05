@@ -81,19 +81,24 @@ export default new GraphQLObjectType({
                 return rp(`http://api.tvmaze.com/shows/${show.id}/episodes`)
                     .then((res) => {
                         var episodesData = JSON.parse(res);
-                        var showRepository = new ShowRepository();
-                        return showRepository.getWatchedEpisodes(context.session.name, show.id).then((episodesStatus) => {
-                            episodesStatus.forEach(watchedEpisode => {
-                                episodesData.forEach(episode => {
-                                    if (episode.season === watchedEpisode.season && episode.number === watchedEpisode.episodeNumber) {
-                                        episode.watched = true;
-                                    }
-                                })
-                            });
-
+                        if (!context.session.name) {
                             return episodesData;
-                        });
+                        } else {
+                            var showRepository = new ShowRepository();
+                            return showRepository.getWatchedEpisodes(context.session.name, show.id).then((episodesStatus) => {
+                                episodesStatus.forEach(watchedEpisode => {
+                                    episodesData.forEach(episode => {
+                                        if (episode.season === watchedEpisode.season && episode.number === watchedEpisode.episodeNumber) {
+                                            episode.watched = true;
+                                        }
+                                    })
+                                });
+
+                                return episodesData;
+                            });
+                        }
                     });
+
             }
         },
         cast: {

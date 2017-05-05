@@ -4,7 +4,7 @@ import {sanitize} from 'dompurify';
 import Moment from 'react-moment';
 import watchedImage from '../../images/watched.png';
 
-const EpisodesTable = ({episode, watchedAction}) => {
+const EpisodesTable = ({episode, watchedAction, isAuthenticated}) => {
 
   const cleanSummary = sanitize(episode.summary, {ALLOWED_TAGS: []});
 
@@ -19,7 +19,7 @@ const EpisodesTable = ({episode, watchedAction}) => {
         {episode.watched && <img className="watched" src={watchedImage}/>}
         <strong>{episode.name}
           (Season: {episode.season}
-          - Episode: {episode.number}) {!episode.watched && <a onClick={() => watchedAction(episode.season, episode.number)}>
+          - Episode: {episode.number}) {isAuthenticated && !episode.watched && <a onClick={() => watchedAction(episode.season, episode.number)}>
             Mark as watched</a>}
         </strong>
         <small className='is-pulled-right'><Moment format="MMMM Do YYYY, h:mm:ss a" date={episode.airstamp}/></small>
@@ -32,7 +32,8 @@ const EpisodesTable = ({episode, watchedAction}) => {
 
 EpisodesTable.propTypes = {
   episode: PropTypes.object.isRequired,
-  watchedAction: PropTypes.func.isRequired
+  watchedAction: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
 export default EpisodesTable;

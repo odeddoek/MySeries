@@ -6,6 +6,7 @@ import toastr from 'toastr';
 import Spinner from './../common/Spinner';
 import Loading from 'react-loading-spinner';
 import getUserFollowedShowQuery from '../../queries/GetUserFollowedShow';
+import {connect} from 'react-redux';
 
 class EpisodeTab extends Component {
 
@@ -39,10 +40,11 @@ class EpisodeTab extends Component {
 
   render() {
     const {loading, show} = this.props.data;
+    const isAuthenticated = this.props.user.username && this.props.user.username.length > 0;;
 
     return (
       <Loading isLoading={loading} spinner={Spinner}>
-        {show && <EpisodesTable episodes={show.episodes} watchedAction={this.markEpisodeAsWatched}/>}
+        {show && <EpisodesTable episodes={show.episodes} watchedAction={this.markEpisodeAsWatched} isAuthenticated={isAuthenticated}/>}
       </Loading>
     );
   }
@@ -62,4 +64,8 @@ const markEpisodeAsWatchedQuery = graphql(gql `mutation ($showId: Int!, $season:
   markEpisodeAsWatched(tvShowId: $showId, season: $season, number: $number)
 }`);
 
-export default compose(getShowEpisodes, markEpisodeAsWatchedQuery)(EpisodeTab);
+function mapStateToProps(state, ownProps) {
+  return {user: state.user};
+}
+
+export default compose(getShowEpisodes, markEpisodeAsWatchedQuery, connect(mapStateToProps))(EpisodeTab);
