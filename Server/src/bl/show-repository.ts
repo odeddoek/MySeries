@@ -25,7 +25,6 @@ class ShowRepository {
         return UserModel.findOne({ username }).then((user: IUser) => {
             return ShowReviewModel.create({ user, showId: tvMazeId, content: review }).then((showReview) => {
                 return UserModel.update({ username }, { $push: { "showReviews": showReview } }).then((res: any) => {
-                    console.log(res);
                     return true;
                 }, (err: any) => {
                     console.log("Error: " + err);

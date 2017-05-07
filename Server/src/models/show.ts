@@ -1,8 +1,10 @@
 import { Document, Schema, model } from "mongoose";
 
+import { IShowReview } from "./show-review";
+
 interface IShow extends Document {
     tvMazeId: number;
-    reviews: [{ type: Schema.Types.ObjectId, ref: "ShowComment" }]
+    reviews: [IShowReview]
 };
 
 const ShowSchema: Schema = new Schema({
