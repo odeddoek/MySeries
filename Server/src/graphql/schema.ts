@@ -101,14 +101,14 @@ export const schema: GraphQLSchema = new GraphQLSchema({
             addShowReview: {
                 type: GraphQLBoolean,
                 args: {
-                        tvShowId: {
-                            name: "tvShowId",
-                            type: new GraphQLNonNull(GraphQLInt)
-                        },
-                        content: {
-                            name: "content",
-                            type: new GraphQLNonNull(GraphQLString)
-                        }
+                    tvShowId: {
+                        name: "tvShowId",
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    content: {
+                        name: "content",
+                        type: new GraphQLNonNull(GraphQLString)
+                    }
                 },
                 resolve: (parent, args: any, context: any) => {
                     if (!context.session.name) {
@@ -116,6 +116,35 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                     } else {
                         var showRepository = new ShowRepository();
                         return showRepository.addUserReview(context.session.name, args.tvShowId, args.content);
+                    }
+                }
+            },
+            addEpisodeReview: {
+                type: GraphQLBoolean,
+                args: {
+                    tvShowId: {
+                        name: "tvShowId",
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    season: {
+                        name: "season",
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    number: {
+                        name: "number",
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    content: {
+                        name: "content",
+                        type: new GraphQLNonNull(GraphQLString)
+                    }
+                },
+                resolve: (parent, args: any, context: any) => {
+                    if (!context.session.name) {
+                        throw new Error("You must be logged in in order to add episode review");
+                    } else {
+                        var episodeRepository = new EpisodeRepository();
+                        return episodeRepository.addUserReview(context.session.name, args.tvShowId, args.season, args.number, args.content);
                     }
                 }
             },

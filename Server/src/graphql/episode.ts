@@ -3,14 +3,23 @@ import {
     GraphQLInt,
     GraphQLString,
     GraphQLBoolean,
-    GraphQLID
-} from 'graphql';
+    GraphQLID,
+    GraphQLList
+} from "graphql";
+
+import { EpisodeRepository } from "../bl/episode-repository";
+
+import episodeReviewType from "./episode-review";
+import showType from "./show";
 
 export default new GraphQLObjectType({
-    name: 'Episode',
-    fields: {
+    name: "Episode",
+    fields: () => ({
         id: {
             type: GraphQLInt
+        },
+        show: {
+            type: showType
         },
         url: {
             type: GraphQLString
@@ -54,6 +63,15 @@ export default new GraphQLObjectType({
             resolve: (root) => {
                 return (root.watched === true);
             }
-        }
-    }
+        },
+        reviews: {
+            type: new GraphQLList(episodeReviewType),
+            resolve: (root, args, context, ast) => {
+                var episodeRepository = new EpisodeRepository();
+                return episodeRepository.getEpisodeReviews(root.show.id, root.season, root.number).then((reviews) => {
+                    return reviews;
+                });
+            }
+        },
+    })
 });

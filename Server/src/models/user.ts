@@ -1,4 +1,5 @@
 import { Document, Schema, model } from "mongoose";
+import { IEpisodeReview } from "./episode-reviews";
 import { IShowReview } from "./show-review";
 
 interface IUser extends Document {
@@ -17,6 +18,7 @@ interface IUser extends Document {
     }];
 
     showReviews: [IShowReview];
+    episodeReviews: [IEpisodeReview];
 };
 
 const UserSchema: Schema = new Schema({
@@ -35,7 +37,8 @@ const UserSchema: Schema = new Schema({
         ]
     }],
 
-    showReviews: [{ type: Schema.Types.ObjectId, ref: "ShowReview" }]
+    showReviews: [{ type: Schema.Types.ObjectId, ref: "ShowReview" }],
+    episodeReviews: [{ type: Schema.Types.ObjectId, ref: "EpisodeReview" }]
 });
 
 const UserModel = model<IUser>("User", UserSchema);

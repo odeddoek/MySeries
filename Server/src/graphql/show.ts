@@ -8,17 +8,16 @@ import {
 
 import * as rp from "request-promise";
 
-import { ShowRepository } from "../bl/show-repository";
-
 import episodeType from "./episode";
 import castType from "./cast";
 import showReviewType from "./show-review";
 
 import { EpisodeRepository }  from "../bl/episode-repository";
+import { ShowRepository } from "../bl/show-repository";
 
 export default new GraphQLObjectType({
     name: "Show",
-    fields: {
+    fields: () => ({
         id: {
             type: GraphQLInt
         },
@@ -84,6 +83,10 @@ export default new GraphQLObjectType({
                 return rp(`http://api.tvmaze.com/shows/${show.id}/episodes`)
                     .then((res) => {
                         var episodesData = JSON.parse(res);
+
+                        episodesData.forEach(episode => {
+                            episode.show = show;
+                        });
                         if (!context.session.name) {
                             return episodesData;
                         } else {
@@ -108,17 +111,14 @@ export default new GraphQLObjectType({
             type: new GraphQLList(showReviewType),
             resolve: (root) => {
                 var showRepository = new ShowRepository();
-                return showRepository.getShowReviews(root.id).then((reviews) => {
-                    return reviews;
-                });
+                return showRepository.getShowReviews(root.id);
             }
         },
         cast: {
             type: new GraphQLList(castType),
             resolve: (root) => {
-                return rp(`http://api.tvmaze.com/shows/${root.id}/cast`)
-                    .then((res) => JSON.parse(res));
+                return rp(`http://api.tvmaze.com/shows/${root.id}/cast`).then((res) => JSON.parse(res));
             }
         }
-    }
+    })
 });

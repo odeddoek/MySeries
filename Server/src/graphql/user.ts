@@ -6,6 +6,8 @@ import {
 } from "graphql";
 
 import showReviewType from "./show-review";
+import episodeReviewType from "./episode-review";
+
 import { UserRepository } from "../bl/user-repository";
 
 export default new GraphQLObjectType({
@@ -25,6 +27,16 @@ export default new GraphQLObjectType({
             resolve: (root) => {
                 var userRepository = new UserRepository();
                 return userRepository.getUserShowReviews(root._id).then((reviews) => {
+                    console.log(reviews);
+                    return reviews;
+                });
+            }
+        },
+        episodeReviews: {
+            type: new GraphQLList(episodeReviewType),
+            resolve: (root) => {
+                var userRepository = new UserRepository();
+                return userRepository.getUserEpisodeReviews(root._id).then((reviews) => {
                     console.log(reviews);
                     return reviews;
                 });
