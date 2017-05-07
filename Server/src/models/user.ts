@@ -1,4 +1,5 @@
 import { Document, Schema, model } from "mongoose";
+import { IShowReview } from "./show-review";
 
 interface IUser extends Document {
     username: string;
@@ -14,6 +15,8 @@ interface IUser extends Document {
             }
         ];
     }];
+
+    showReviews: [IShowReview];
 };
 
 const UserSchema: Schema = new Schema({
@@ -30,7 +33,9 @@ const UserSchema: Schema = new Schema({
                 _id: false
             }
         ]
-    }]
+    }],
+
+    showReviews: [{ type: Schema.Types.ObjectId, ref: "ShowReview" }]
 });
 
 const UserModel = model<IUser>("User", UserSchema);

@@ -8,10 +8,13 @@ import {
 
 import * as rp from 'request-promise';
 
+import { ShowRepository } from "../bl/show-repository";
+
 import episodeType from './episode';
 import castType from './cast';
+import { ShowReview } from './show-review';
 
-import { ShowRepository }  from "../bl/show-repository";
+import { EpisodeRepository }  from "../bl/episode-repository";
 
 export default new GraphQLObjectType({
     name: 'Show',
@@ -84,8 +87,8 @@ export default new GraphQLObjectType({
                         if (!context.session.name) {
                             return episodesData;
                         } else {
-                            var showRepository = new ShowRepository();
-                            return showRepository.getWatchedEpisodes(context.session.name, show.id).then((episodesStatus) => {
+                            var episodeRepository = new EpisodeRepository();
+                            return episodeRepository.getWatchedEpisodes(context.session.name, show.id).then((episodesStatus) => {
                                 episodesStatus.forEach(watchedEpisode => {
                                     episodesData.forEach(episode => {
                                         if (episode.season === watchedEpisode.season && episode.number === watchedEpisode.episodeNumber) {
@@ -99,6 +102,15 @@ export default new GraphQLObjectType({
                         }
                     });
 
+            }
+        },
+        reviews: {
+            type: new GraphQLList(ShowReview),
+            resolve: (root) => {
+                var showRepository = new ShowRepository();
+                return showRepository.getShowReviews(root.id).then((reviews) => {
+                    return reviews;
+                });
             }
         },
         cast: {

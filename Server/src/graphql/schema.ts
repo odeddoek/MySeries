@@ -4,6 +4,7 @@ import {
     GraphQLInt,
     GraphQLSchema,
     GraphQLString,
+    GraphQLBoolean,
     GraphQLList
 } from "graphql";
 
@@ -14,6 +15,7 @@ import episodeType from "./episode";
 import showType from "./show";
 
 import { ShowRepository }  from "../bl/show-repository";
+import { EpisodeRepository } from "../bl/episode-repository";
 import { Auth } from "../bl/auth";
 
 
@@ -93,6 +95,27 @@ export const schema: GraphQLSchema = new GraphQLSchema({
     mutation: new GraphQLObjectType({
         name: "RootMutationType",
         fields: {
+            addShowReview: {
+                type: GraphQLBoolean,
+                args: {
+                        tvShowId: {
+                            name: "tvShowId",
+                            type: new GraphQLNonNull(GraphQLInt)
+                        },
+                        content: {
+                            name: "content",
+                            type: new GraphQLNonNull(GraphQLString)
+                        }
+                },
+                resolve: (parent, args: any, context: any) => {
+                    if (!context.session.name) {
+                        throw new Error("You must be logged in in order to follow a tv show!");
+                    } else {
+                        var showRepository = new ShowRepository();
+                        return showRepository.addUserReview(context.session.name, args.tvShowId, args.content);
+                    }
+                }
+            },
             markEpisodeAsWatched: {
                 type: GraphQLString,
                 args: {
@@ -113,8 +136,8 @@ export const schema: GraphQLSchema = new GraphQLSchema({
                     if (!context.session.name) {
                         throw new Error("You must be logged in in order to follow a tv show!");
                     } else {
-                        var showRepository = new ShowRepository();
-                        return showRepository.markEpisodeAsWatched(context.session.name, args.tvShowId, args.season, args.number);
+                        var episodeRepository = new EpisodeRepository();
+                        return episodeRepository.markEpisodeAsWatched(context.session.name, args.tvShowId, args.season, args.number);
                     }
                 }
             },
