@@ -4,20 +4,20 @@ import {
     GraphQLString,
     GraphQLList,
     GraphQLID
-} from 'graphql';
+} from "graphql";
 
-import * as rp from 'request-promise';
+import * as rp from "request-promise";
 
 import { ShowRepository } from "../bl/show-repository";
 
-import episodeType from './episode';
-import castType from './cast';
-import { ShowReview } from './show-review';
+import episodeType from "./episode";
+import castType from "./cast";
+import showReviewType from "./show-review";
 
 import { EpisodeRepository }  from "../bl/episode-repository";
 
 export default new GraphQLObjectType({
-    name: 'Show',
+    name: "Show",
     fields: {
         id: {
             type: GraphQLInt
@@ -105,7 +105,7 @@ export default new GraphQLObjectType({
             }
         },
         reviews: {
-            type: new GraphQLList(ShowReview),
+            type: new GraphQLList(showReviewType),
             resolve: (root) => {
                 var showRepository = new ShowRepository();
                 return showRepository.getShowReviews(root.id).then((reviews) => {

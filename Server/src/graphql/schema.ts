@@ -13,9 +13,11 @@ import * as Promise from "Promise";
 
 import episodeType from "./episode";
 import showType from "./show";
+import userType from "./user";
 
 import { ShowRepository }  from "../bl/show-repository";
 import { EpisodeRepository } from "../bl/episode-repository";
+import { UserRepository } from "../bl/user-repository";
 import { Auth } from "../bl/auth";
 
 
@@ -24,9 +26,10 @@ export const schema: GraphQLSchema = new GraphQLSchema({
         name: "RootQueryType",
         fields: {
             self: {
-                type: GraphQLString,
+                type: userType,
                 resolve: (parent, args: any, context: any) => {
-                    return context.session.name;
+                    var userRepository = new UserRepository();
+                    return userRepository.getUserByName(context.session.name);
                 }
             },
             schedule: {

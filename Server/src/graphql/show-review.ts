@@ -12,7 +12,7 @@ import userType from "./user";
 import { UserRepository } from "../bl/user-repository";
 import * as rp from "request-promise";
 
-export var ShowReview = new GraphQLObjectType({
+export default new GraphQLObjectType({
     name: "ShowReview",
     fields: () => ({
         user: {
