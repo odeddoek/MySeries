@@ -4,14 +4,20 @@ import { EpisodeReviewModel } from "../models/episode-reviews";
 class EpisodeRepository {
     public getWatchedEpisodes(user: string, tvShowId: number) {
         return UserModel.findOne({ username: user, "tvShows.id": tvShowId }, { "tvShows.$": 1 }).then((user: IUser) => {
-            return user.tvShows[0].watchedEpisodes;
+            if (user != null && user.tvShows != null && user.tvShows[0] != null) {
+                return user.tvShows[0].watchedEpisodes;
+            } else {
+                return [];
+            }
         });
     }
 
     public markEpisodeAsWatched(user: string, tvShowId: number, season: number, episodeNumber: number) {
+      return UserModel.update({ username: user, "tvShows.id": { "$ne": tvShowId } },
+          { $push: { "tvShows": { id: tvShowId, watchedEpisodes: [] as [any] } } }).then(() => {
         return UserModel.findOneAndUpdate({ username: user, "tvShows.id": tvShowId },
-            { $addToSet: { "tvShows.$.watchedEpisodes": { episodeNumber, season } } });
-    }
+            { $addToSet: { "tvShows.$.watchedEpisodes": { episodeNumber, season } } })});
+        }
 
     public getEpisodeReviews(tvMazeId: number, season: number, number: number) {
         return EpisodeReviewModel.find({ tvMazeId, season, number });
