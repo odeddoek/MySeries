@@ -12,7 +12,7 @@
     },
     "production": {
       "plugins": [
-        "transform-react-constant-elements",
+        "transform-react-constant-eements",
         "transform-react-remove-prop-types"
       ]
     }
