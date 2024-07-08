@@ -1,7 +1,7 @@
 {
   "presets": [
     "latest",
-    "react",
+    "react"
     "stage-1"
   ],
   "env": {
